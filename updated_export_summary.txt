@@ -1,0 +1,21 @@
+Option Explicit
+  Const copied_file = "\\172.19.1.12\Corpfiles\CSM-BPI-RA\003 Reporting Tools\002 Web Tools\ur.xlsx"
+
+Public Sub export_summary_sheet()
+  'ensuring we cached the current workbook for easy access
+  Dim w As Workbook: Set w = ThisWorkbook
+  'same as workbook caching technique
+  Dim s As Worksheet: Set s = w.Worksheets("Summary")
+  'this will hold copied sheet as this will ensure we are working on the copied sheet
+  Dim copiedWb As Workbook
+  
+  s.Select
+  s.Copy
+  Set copiedWb = ActiveWorkbook
+  copiedWb.SaveAs copied_file, xlOpenXMLWorkbook, CreateBackup:=False
+  copiedWb.Close False
+  
+  Set copiedWb = Nothing
+  Set s = Nothing
+  Set w = Nothing
+End Sub
